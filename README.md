@@ -74,9 +74,8 @@ CREATE TABLE retails (
 
 ### 🔹 Inserting the Dataset via psql
 
-```psql
 Once the table was created, the dataset was imported using PostgreSQL’s command-line tool psql.
-
+```psql
 psql -U your_username -d your_database
 \COPY retails(InvoiceNo, StockCode, Description, Quantity, InvoiceDate, UnitPrice, CustomerID, Country)
 FROM '/path/to/OnlineRetail.csv' DELIMITER ',' CSV HEADER;
@@ -88,12 +87,35 @@ FROM '/path/to/OnlineRetail.csv' DELIMITER ',' CSV HEADER;
 After importing the **Online Retail dataset** into PostgreSQL, I performed a series of cleaning, transformation, and modeling steps to prepare the data for fast KPIs and the main dashboard. This ensures accuracy, consistency, and optimized query performance for analytics and reporting.
 
 ---
+### Step 0: Initial Data Cleaning
+Before building fact and dimension tables, I filtered out invalid and incomplete transactions to create a clean working dataset:
 
+```sql
+CREATE TABLE clear_retails AS
+  SELECT * FROM retails 
+  WHERE description IS NOT NULL 
+    AND description != ''
+    AND Quantity > 0
+    AND UnitPrice > 0;
+```
+---
 ### Step 1: Fact Table Creation
 The cleaned transactional data was loaded into a **fact table** to centralize key metrics like quantity, unit price, and total sales per invoice. This table serves as the foundation for all subsequent analyses.
 
 ```sql
--- Place the FACT TABLE SQL code here
+-- FACT TABLE
+CREATE TABLE IF NOT EXISTS fact_sales AS 
+SELECT 	
+	invoiceno,
+	customerid,
+	stockcode,
+	quantity,
+	unitprice,
+	ROUND(quantity * unitprice, 2) AS total_price,
+	invoicedate,
+	DATE(invoicedate) AS invoice_date_key  -- For joining with dim_date
+FROM clean_retails;
+
 ````
 
 ---
@@ -105,19 +127,46 @@ To support a **dimensional data model**, I created dimension tables for customer
 * **Customer Dimension**: Stores unique customer IDs and their countries.
 
 ```sql
--- Place the DIMENSION TABLE: CUSTOMER SQL code here
+-- DIMENSION TABLE: CUSTOMER
+CREATE TABLE IF NOT EXISTS dim_customer AS	
+	SELECT 
+		customerid,
+		MAX(country) AS country
+	FROM clean_retails
+	WHERE customerid IS NOT NULL
+	GROUP BY customerid;
+
 ```
 
 * **Product Dimension**: Stores unique product codes and descriptions.
 
 ```sql
--- Place the DIMENSION TABLE: PRODUCT SQL code here
+-- DIMENSION TABLE: PRODUCT
+CREATE TABLE IF NOT EXISTS dim_product AS	
+	SELECT 
+		stockcode,
+		MAX(description) AS description
+	FROM clean_retails
+	WHERE stockcode IS NOT NULL
+	GROUP BY stockcode;
+
 ```
 
 * **Date Dimension**: Extracts day, month, year, weekday, month name, and week number from invoice dates for time-based analysis.
 
 ```sql
--- Place the DIMENSION TABLE: DATE SQL code here
+-- DIMENSION TABLE: DATE
+CREATE TABLE IF NOT EXISTS dim_date AS	
+SELECT DISTINCT
+	DATE(invoicedate) AS full_date,
+	EXTRACT(DAY FROM invoicedate) AS day,
+  	EXTRACT(MONTH FROM invoicedate) AS month,
+  	EXTRACT(YEAR FROM invoicedate) AS year,
+  	TO_CHAR(invoicedate, 'Day') AS weekday,
+  	TO_CHAR(invoicedate, 'Month') AS month_name,
+  	EXTRACT(WEEK FROM invoicedate) AS week_number
+FROM clean_retails;
+
 ```
 
 ---
@@ -127,7 +176,61 @@ To support a **dimensional data model**, I created dimension tables for customer
 To ensure **referential integrity** and fast query performance, I verified primary keys for all dimension tables and created foreign key relationships with the fact table. Indexes were also added to optimize joins and aggregations.
 
 ```sql
--- Place the PRIMARY KEY, FOREIGN KEY, and INDEX SQL code here
+-- ADD PRIMARY KEYS FOR JOINING RELATIONSHIPS
+ALTER TABLE dim_customer ADD PRIMARY KEY (customerid);
+ALTER TABLE dim_product ADD PRIMARY KEY (stockcode);
+ALTER TABLE dim_date ADD PRIMARY KEY (full_date);
+
+--Create Foreing keys for relationship between main table and dime tables
+ALTER TABLE fact_sales 
+ADD CONSTRAINT fk_customer 
+FOREIGN KEY (customerid) 
+REFERENCES dim_customer(customerid);
+
+ALTER TABLE fact_sales 
+ADD CONSTRAINT fk_product 
+FOREIGN KEY (stockcode) 
+REFERENCES dim_product(stockcode);
+
+ALTER TABLE fact_sales 
+ADD CONSTRAINT fk_date 
+FOREIGN KEY (invoice_date_key) 
+REFERENCES dim_date(full_date);
+
+--Add Indexes in dim tables
+CREATE INDEX idx_customer ON fact_sales(customerid);
+CREATE INDEX idx_product ON fact_sales(stockcode);
+CREATE INDEX idx_date ON fact_sales(invoice_date_key);
+
+```
+I also checked for duplicate and null keys in the dimension tables using SQL queries, confirming that `customerid`, `stockcode`, and `full_date` are unique, which ensures the correctness and consistency of the dimensional model.
+
+```sql
+SELECT
+	customerid, COUNT(*) 
+FROM dim_customer 
+GROUP BY customerid
+HAVING COUNT(*) > 1;
+
+
+SELECT
+	stockcode, COUNT(*) 
+FROM dim_product 
+GROUP BY stockcode
+HAVING COUNT(*) > 1;
+
+
+SELECT
+	full_date, COUNT(*) 
+FROM dim_date 
+GROUP BY full_date
+HAVING COUNT(*) > 1;
+
+--Verify There Are No NULLs in the Primary Key Columns
+SELECT customerid FROM dim_customer WHERE customerid IS NULL; 
+SELECT stockcode FROM dim_product WHERE stockcode IS NULL; 
+SELECT full_date FROM dim_date WHERE full_date IS NULL;
+
 ```
 
 **Key Cleaning & Modeling Functions Used:**
