@@ -379,11 +379,11 @@ After preparing the fact and dimension tables in PostgreSQL, I connected Power B
    To bring the queries written in SQL into Power BI, I translated them into **DAX measures**. These measures allow dynamic calculations that respond to user interactions, filters, and slicers inside the report.
 
    #### Examples of DAX Measures for KPI Reports:
-   ```DAX
+```
   YearMonth = FORMAT([year], "0000") & "-" & FORMAT([month], "00")
 
   YearMonthLabel = FORMAT(DATE([year], [month], 1), "MMM yyyy")
-     ```
+```
 ![KPIs DAX](https://github.com/MoRMatipour/Online-Retail-E-commerce-Dashboard-Postgress-SQL-Power-BI-/blob/main/fast%20kpis/Screenshot%202025-06-24%20193602.png?raw=true)
 
 3. **Building the Fast KPIs Report**
@@ -429,7 +429,7 @@ With the Fast KPIs report completed, the next goal was to design a **full-scale 
 3. **Advanced DAX Measures**
    Expanded the measures library to enable richer analysis:
 
-   ```DAX
+```DAX
   Revenue MoM % = 
 VAR CurrentMonth = [Total Revenue]
 VAR PreviousMont = 
@@ -447,7 +447,8 @@ CALCULATE(
         ALLSELECTED('dim_date'),
         'dim_date'[full_date] <= MAX('dim_date'[full_date])
     )
-);  ```
+);
+```
    
 
    These measures allowed the dashboard to track **growth trends, profitability ratios, and rankings dynamically**.
