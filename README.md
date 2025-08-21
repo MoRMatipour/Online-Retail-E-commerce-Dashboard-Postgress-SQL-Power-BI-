@@ -39,16 +39,14 @@ The project involved:
 ---
 ## Table of Contents
 
-- [Project Overview](#project-overview)
 - [Dataset](#dataset)
-- [Inserting the Dataset into PostgreSQL](#inserting-the-dataset-into-postgresql)
+- [Inserting Dataset into PostgreSQL](#inserting-dataset-into-postgresql)
 - [Data Cleaning & Modeling](#data-cleaning--modeling)
 - [Business KPIs and Analytical Queries](#business-kpis-and-analytical-queries)
 - [Phase 1 Completed Data Preparation and Modeling](#phase-1-completed-data-preparation-and-modeling)
 - [Phase 2 Fast KPIs Report in Power BI](#phase-2-fast-kpis-report-in-power-bi)
 - [Phase 3 Comprehensive BI Dashboard in Power BI](#phase-3-comprehensive-bi-dashboard-in-power-bi)
 - [Conclusion](#conclusion)
-
 
 ---
 ## 📊 Dataset
