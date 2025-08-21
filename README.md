@@ -386,7 +386,7 @@ After preparing the fact and dimension tables in PostgreSQL, I connected Power B
 1. **Connecting Power BI to PostgreSQL**
    - Established a direct connection to the PostgreSQL server.
    - Imported the KPIs via SQL Queries
-   ![Connected Queries](https://github.com/MoRMatipour/Online-Retail-E-commerce-Dashboard-Postgress-SQL-Power-BI-/blob/main/fast%20kpis/Screenshot%202025-06-24%20183158.png?raw=true) 
+![Connected Queries](https://github.com/MoRMatipour/Online-Retail-E-commerce-Dashboard-Postgress-SQL-Power-BI-/blob/main/fast%20kpis/Screenshot%202025-06-24%20183158.png?raw=true) 
 
 2. **Creating DAX Measures**
    To bring the queries written in SQL into Power BI, I translated them into **DAX measures**. These measures allow dynamic calculations that respond to user interactions, filters, and slicers inside the report.
@@ -427,10 +427,10 @@ With the Fast KPIs report completed, the next goal was to design a **full-scale 
 1. **Connecting Power BI to PostgreSQL**
    - Established a direct connection to the PostgreSQL server.
    - Imported the `fact_sales` and related dimension tables.
-   ![Table Imports](https://github.com/MoRMatipour/Online-Retail-E-commerce-Dashboard-Postgress-SQL-Power-BI-/blob/main/BI%20Dashboard/Screenshot%202025-06-27%20154549.png?raw=true)
+![Table Imports](https://github.com/MoRMatipour/Online-Retail-E-commerce-Dashboard-Postgress-SQL-Power-BI-/blob/main/BI%20Dashboard/Screenshot%202025-06-27%20154549.png?raw=true)
 
    - Verified relationships between tables (fact-to-dim joins).
-   ![Table Models](https://github.com/MoRMatipour/Online-Retail-E-commerce-Dashboard-Postgress-SQL-Power-BI-/blob/main/BI%20Dashboard/Screenshot%202025-08-21%20121252.png?raw=true)
+![Table Models](https://github.com/MoRMatipour/Online-Retail-E-commerce-Dashboard-Postgress-SQL-Power-BI-/blob/main/BI%20Dashboard/Screenshot%202025-08-21%20121252.png?raw=true)
 2. **Designing the Dashboard Layout**
 
    * Built a **dedicated Power BI dashboard file** with interactive visuals.  
@@ -473,7 +473,7 @@ CALCULATE(
    * **Product Performance**: Top-selling products by revenue and quantity; scatter plot of revenue vs. order frequency.
    * **Geographic Distribution**: Map visualization showing sales by country.
    * **Growth Tracking**: KPI visual for monthly growth % with conditional formatting.
- ![Dashboard Picture](https://github.com/MoRMatipour/Online-Retail-E-commerce-Dashboard-Postgress-SQL-Power-BI-/blob/main/BI%20Dashboard/Screenshot%202025-08-21%20124334.png?raw=true)
+![Dashboard Picture](https://github.com/MoRMatipour/Online-Retail-E-commerce-Dashboard-Postgress-SQL-Power-BI-/blob/main/BI%20Dashboard/Screenshot%202025-08-21%20124334.png?raw=true)
 
 5. **Interactivity & Usability**
 
