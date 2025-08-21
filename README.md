@@ -40,7 +40,7 @@ The project involved:
 ## Table of Contents
 
 - [Dataset](#dataset)
-- [Inserting Dataset into PostgreSQL](#inserting-dataset-into-postgresql)
+- [Inserting the Dataset into PostgreSQL](#inserting-the-dataset-into-postgresql)
 - [Data Cleaning & Modeling](#data-cleaning--modeling)
 - [Business KPIs and Analytical Queries](#business-kpis-and-analytical-queries)
 - [Phase 1 Completed Data Preparation and Modeling](#phase-1-completed-data-preparation-and-modeling)
