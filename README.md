@@ -255,7 +255,11 @@ After setting up the data model, I wrote analytical queries to extract the most 
 This query calculates the overall business performance by measuring total orders, total quantity sold, and total revenue. It provides a baseline understanding of the company’s scale and value generation.
 
 ```sql
--- Place your Total Revenue, Orders, and Quantity query here
+SELECT 
+  COUNT(DISTINCT invoiceno) AS total_orders,
+  SUM(quantity) AS total_quantity,
+  ROUND(SUM(total_price), 2) AS total_revenue
+FROM fact_sales;
 ```
 
 ---
@@ -265,7 +269,17 @@ This query calculates the overall business performance by measuring total orders
 By joining the sales fact table with the date dimension, this query tracks **monthly trends** in revenue, orders, and quantities. This highlights seasonality patterns and performance over time.
 
 ```sql
--- Place your Monthly Sales query here
+SELECT 
+  d.year,
+  d.month,
+  d.month_name,
+  COUNT(DISTINCT f.invoiceno) AS total_orders,
+  SUM(f.quantity) AS total_quantity,
+  ROUND(SUM(f.total_price), 2) AS total_revenue
+FROM fact_sales f
+JOIN dim_date d ON f.invoice_date_key = d.full_date
+GROUP BY d.year, d.month, d.month_name
+ORDER BY d.year, d.month;
 ```
 
 ---
@@ -275,7 +289,15 @@ By joining the sales fact table with the date dimension, this query tracks **mon
 Breaking down sales by country identifies the most valuable markets and regions contributing the highest revenue.
 
 ```sql
--- Place your Orders and Revenue by Country query here
+SELECT 
+  c.country,
+  COUNT(DISTINCT f.invoiceno) AS total_orders,
+  SUM(f.quantity) AS total_quantity,
+  ROUND(SUM(f.total_price), 2) AS total_revenue
+FROM fact_sales f
+JOIN dim_customer c ON f.customerid = c.customerid
+GROUP BY c.country
+ORDER BY total_revenue DESC;
 ```
 
 ---
@@ -285,7 +307,15 @@ Breaking down sales by country identifies the most valuable markets and regions 
 This query identifies the **best-selling products**, which is essential for inventory management, marketing focus, and product promotion.
 
 ```sql
--- Place your Top Products by Revenue query here
+SELECT 
+  p.description AS product,
+  SUM(f.quantity) AS total_quantity,
+  ROUND(SUM(f.total_price), 2) AS total_revenue
+FROM fact_sales f
+JOIN dim_product p ON f.stockcode = p.stockcode
+GROUP BY p.description
+ORDER BY total_revenue DESC
+LIMIT 10;
 ```
 
 ---
@@ -295,7 +325,16 @@ This query identifies the **best-selling products**, which is essential for inve
 Aggregating total spending per customer reveals the **highest-value customers** and allows targeting retention strategies for segments generating the most revenue.
 
 ```sql
--- Place your Top Customers by CLV query here
+SELECT 
+  f.customerid,
+  c.country,
+  ROUND(SUM(f.total_price), 2) AS customer_lifetime_value,
+  COUNT(DISTINCT f.invoiceno) AS orders_count
+FROM fact_sales f
+JOIN dim_customer c ON f.customerid = c.customerid
+GROUP BY f.customerid, c.country
+ORDER BY customer_lifetime_value DESC
+LIMIT 20;
 ```
 
 ---
@@ -333,27 +372,19 @@ After preparing the fact and dimension tables in PostgreSQL, I connected Power B
 
 1. **Connecting Power BI to PostgreSQL**
    - Established a direct connection to the PostgreSQL server.
-   - Imported the `fact_sales` and related dimension tables.
-   - Verified relationships between tables (fact-to-dim joins).
+   - Imported the KPIs via SQL Queries
+   ![Connected Queries](https://github.com/MoRMatipour/Online-Retail-E-commerce-Dashboard-Postgress-SQL-Power-BI-/blob/main/fast%20kpis/Screenshot%202025-06-24%20183158.png?raw=true) 
 
 2. **Creating DAX Measures**
    To bring the queries written in SQL into Power BI, I translated them into **DAX measures**. These measures allow dynamic calculations that respond to user interactions, filters, and slicers inside the report.
 
-   #### Examples of DAX Measures (placeholders for now):
+   #### Examples of DAX Measures for KPI Reports:
    ```DAX
-   Total Revenue = SUMX(Fact_Sales, Fact_Sales[Quantity] * Fact_Sales[UnitPrice])
+  YearMonth = FORMAT([year], "0000") & "-" & FORMAT([month], "00")
 
-   Total Orders = DISTINCTCOUNT(Fact_Sales[InvoiceNo])
-
-   Total Quantity Sold = SUM(Fact_Sales[Quantity])
-
-   Monthly Revenue =
-       CALCULATE(
-           SUMX(Fact_Sales, Fact_Sales[Quantity] * Fact_Sales[UnitPrice]),
-           ALLEXCEPT(Dim_Date, Dim_Date[Month])
-       )
-
-(More measures like **Top Products**, **Top Customers**, and **Revenue by Country** will be added here in the final version.)
+  YearMonthLabel = FORMAT(DATE([year], [month], 1), "MMM yyyy")
+     ```
+![KPIs DAX](https://github.com/MoRMatipour/Online-Retail-E-commerce-Dashboard-Postgress-SQL-Power-BI-/blob/main/fast%20kpis/Screenshot%202025-06-24%20193602.png?raw=true)
 
 3. **Building the Fast KPIs Report**
 
@@ -361,12 +392,14 @@ After preparing the fact and dimension tables in PostgreSQL, I connected Power B
    * Added a **column chart** for Monthly Revenue Trends.
    * Included simple **tables** for Top Products and Top Customers.
    * Ensured **slicers** (Date, Country) were available for quick filtering.
-
+![Report 1](https://github.com/MoRMatipour/Online-Retail-E-commerce-Dashboard-Postgress-SQL-Power-BI-/blob/main/fast%20kpis/Screenshot%202025-08-21%20115537.png?raw=true)
+![Report 2](https://github.com/MoRMatipour/Online-Retail-E-commerce-Dashboard-Postgress-SQL-Power-BI-/blob/main/fast%20kpis/Screenshot%202025-07-15%20222344.png?raw=true)
 ---
 
 ### Output of Phase 2
 
 At the end of this phase, I had a **lightweight Power BI report** that provides quick access to the most important KPIs, helping stakeholders track business performance instantly.
+You can find the KPIs File [here](https://github.com/MoRMatipour/Online-Retail-E-commerce-Dashboard-Postgress-SQL-Power-BI-/blob/main/fast%20kpis/E-commerce%20Sales.pbix).
 
 This report serves as the **foundation for more advanced visualizations and insights in Phase 3**, where we will design a **comprehensive dashboard with deeper drill-down capabilities**.
 
@@ -378,42 +411,62 @@ With the Fast KPIs report completed, the next goal was to design a **full-scale 
 
 ### Steps in this Phase
 
-1. **Designing the Dashboard Layout**
+1. **Connecting Power BI to PostgreSQL**
+   - Established a direct connection to the PostgreSQL server.
+   - Imported the `fact_sales` and related dimension tables.
+   ![Table Imports](https://github.com/MoRMatipour/Online-Retail-E-commerce-Dashboard-Postgress-SQL-Power-BI-/blob/main/BI%20Dashboard/Screenshot%202025-06-27%20154549.png?raw=true)
 
-   * Structured the report into clear sections: **Sales Overview**, **Customer Insights**, **Product Performance**, and **Geographic Distribution**.
-   * Used consistent color themes and layout for readability.
-   * Balanced between summary KPIs at the top and detailed visuals below.
+   - Verified relationships between tables (fact-to-dim joins).
+   ![Table Models](https://github.com/MoRMatipour/Online-Retail-E-commerce-Dashboard-Postgress-SQL-Power-BI-/blob/main/BI%20Dashboard/Screenshot%202025-06-27%20154549.png?raw=true)
+2. **Designing the Dashboard Layout**
 
-2. **Advanced DAX Measures**
+   * Built a **dedicated Power BI dashboard file** with interactive visuals.  
+   * Included **slicers** for filtering, a **bar chart** for product analysis, a **map** for geographic insights, and a **line chart** for sales trends.  
+   * Added **four KPI cards** to give an at-a-glance overview.  
+   * Ensured a clean and minimal layout for easy navigation and storytelling.  
+
+
+3. **Advanced DAX Measures**
    Expanded the measures library to enable richer analysis:
 
    ```DAX
-   Avg Order Value = [Total Revenue] / [Total Orders]
+  Revenue MoM % = 
+VAR CurrentMonth = [Total Revenue]
+VAR PreviousMont = 
+    CALCULATE(
+        [Total Revenue],
+        DATEADD('dim_date'[full_date], -1, MONTH)
+    )
+RETURN 
+    DIVIDE(CurrentMonth - PreviousMont, PreviousMont);
 
-   Revenue Growth % =
-       DIVIDE(
-           [Total Revenue] - CALCULATE([Total Revenue], DATEADD(Dim_Date[Date], -1, MONTH)),
-           CALCULATE([Total Revenue], DATEADD(Dim_Date[Date], -1, MONTH))
-       )
-
-   Top N Customers = RANKX(ALL(Dim_Customer), [Total Revenue], , DESC)
+Cumulative Revenue = 
+CALCULATE(
+    [Total Revenue],
+    FILTER(
+        ALLSELECTED('dim_date'),
+        'dim_date'[full_date] <= MAX('dim_date'[full_date])
+    )
+);
    ```
 
    These measures allowed the dashboard to track **growth trends, profitability ratios, and rankings dynamically**.
 
-3. **Visuals Created**
+4. **Visuals Created**
 
    * **Sales Overview**: Cards for revenue, orders, avg order value; line chart for monthly trends.
    * **Customer Insights**: Bar chart of top customers by revenue; segmentation by customer country.
    * **Product Performance**: Top-selling products by revenue and quantity; scatter plot of revenue vs. order frequency.
    * **Geographic Distribution**: Map visualization showing sales by country.
    * **Growth Tracking**: KPI visual for monthly growth % with conditional formatting.
+ ![Dashboard Picture](https://github.com/MoRMatipour/Online-Retail-E-commerce-Dashboard-Postgress-SQL-Power-BI-/blob/main/BI%20Dashboard/Screenshot%202025-08-21%20124334.png?raw=true)
 
-4. **Interactivity & Usability**
+5. **Interactivity & Usability**
 
    * Added slicers for **Date, Country, Product Category**.
    * Enabled **drill-down** from category → product → transaction details.
    * Implemented **bookmarks** for switching between Executive View and Analyst View.
+![Dashboard Video](https://github.com/MoRMatipour/Online-Retail-E-commerce-Dashboard-Postgress-SQL-Power-BI-/raw/refs/heads/main/BI%20Dashboard/Recording%202025-08-21%20123659.mp4)
 
 ---
 
@@ -426,6 +479,7 @@ The result is a **comprehensive BI dashboard** that provides:
 * **Interactive exploration for stakeholders** (filter, drill, compare).
 
 This dashboard turns raw transactional data into **actionable intelligence**, bridging the gap between data and business strategy.
+You can find the Dashboard File [here](https://github.com/MoRMatipour/Online-Retail-E-commerce-Dashboard-Postgress-SQL-Power-BI-/blob/main/BI%20Dashboard/correct%20dashboard.pbix).
 
 ---
 
