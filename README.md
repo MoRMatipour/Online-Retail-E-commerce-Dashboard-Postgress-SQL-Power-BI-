@@ -49,7 +49,7 @@ The project involved:
 - [Conclusion](#conclusion)
 
 ---
-## 📊 Dataset
+## Dataset 📊 
 This project uses the **Online Retail Dataset** from the [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/Online+Retail).
 
 **Key details:**
@@ -65,7 +65,7 @@ This dataset enables analysis of:
 
 ---
 
-## 🗄️ Inserting the Dataset into PostgreSQL
+## Inserting the Dataset into PostgreSQL🗄️ 
 
 To process and analyze the Online Retail dataset efficiently, I first created a **PostgreSQL table** to store the raw data. This structured storage allows accurate querying and seamless integration with downstream analytics and Power BI dashboards.
 
