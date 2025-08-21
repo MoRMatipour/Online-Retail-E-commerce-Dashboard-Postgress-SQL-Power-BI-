@@ -417,7 +417,7 @@ With the Fast KPIs report completed, the next goal was to design a **full-scale 
    ![Table Imports](https://github.com/MoRMatipour/Online-Retail-E-commerce-Dashboard-Postgress-SQL-Power-BI-/blob/main/BI%20Dashboard/Screenshot%202025-06-27%20154549.png?raw=true)
 
    - Verified relationships between tables (fact-to-dim joins).
-   ![Table Models](https://github.com/MoRMatipour/Online-Retail-E-commerce-Dashboard-Postgress-SQL-Power-BI-/blob/main/BI%20Dashboard/Screenshot%202025-06-27%20154549.png?raw=true)
+   ![Table Models](https://github.com/MoRMatipour/Online-Retail-E-commerce-Dashboard-Postgress-SQL-Power-BI-/blob/main/BI%20Dashboard/Screenshot%202025-08-21%20121252.png?raw=true)
 2. **Designing the Dashboard Layout**
 
    * Built a **dedicated Power BI dashboard file** with interactive visuals.  
@@ -447,8 +447,8 @@ CALCULATE(
         ALLSELECTED('dim_date'),
         'dim_date'[full_date] <= MAX('dim_date'[full_date])
     )
-);
-   ```
+);  ```
+   
 
    These measures allowed the dashboard to track **growth trends, profitability ratios, and rankings dynamically**.
 
