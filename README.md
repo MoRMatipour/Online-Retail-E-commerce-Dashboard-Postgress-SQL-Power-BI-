@@ -386,6 +386,7 @@ After preparing the fact and dimension tables in PostgreSQL, I connected Power B
 1. **Connecting Power BI to PostgreSQL**
    - Established a direct connection to the PostgreSQL server.
    - Imported the KPIs via SQL Queries
+   
 ![Connected Queries](https://github.com/MoRMatipour/Online-Retail-E-commerce-Dashboard-Postgress-SQL-Power-BI-/blob/main/fast%20kpis/Screenshot%202025-06-24%20183158.png?raw=true) 
 
 2. **Creating DAX Measures**
