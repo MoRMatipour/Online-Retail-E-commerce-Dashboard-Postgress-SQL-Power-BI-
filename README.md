@@ -521,7 +521,27 @@ Using SQL, I extracted critical business insights such as:
 
 These queries laid the foundation for a **self-service BI layer in Power BI**, where stakeholders can instantly explore revenue drivers, customer behavior, and product performance.
 
-Ultimately, the project highlights how a **BI developer can bridge the gap between raw transactional data and business-ready insights**. This **end-to-end approach** ensures that decision-makers have access to fast, reliable, and actionable KPIs, enabling **data-driven growth strategies**.
+### Business Impact
+
+This dashboard empowers stakeholders to make **data-driven decisions** that can lead to measurable improvements in business performance:
+
+* **Revenue Optimization** – Identify top-performing products and customer segments to tailor marketing efforts, potentially increasing average order value (AOV) and overall revenue.
+* **Cost Reduction** – Monitor inventory turnover and return rates to optimize stock levels and reduce holding costs.
+* **Customer Retention** – Track purchase patterns to develop targeted retention strategies, enhancing customer lifetime value (CLV) and reducing churn rates.
+
+### Stakeholder Utilization
+
+The dashboard serves as a versatile tool for various stakeholders:
+
+* **Marketing Teams** – Monitor campaign performance and customer acquisition costs (CAC) to refine targeting and budget allocation.
+* **Sales Managers** – Identify sales trends and product performance to inform sales strategies and forecasting.
+* **Operations Managers** – Assess inventory levels and fulfillment metrics to streamline supply chain processes.
+* **Executives** – Gain a comprehensive overview of business health to guide strategic planning and decision-making.
+
+Ultimately, the project highlights how a **BI developer can bridge the gap between raw transactional data and business-ready insights**. This **end-to-end approach**, combined with clear **quantified business impact**, ensures that decision-makers have access to **fast, reliable, and actionable KPIs**, enabling **data-driven growth strategies** across the organization.
+
+---
+
 
 
 
