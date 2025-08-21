@@ -1,7 +1,6 @@
 # 🛒 Online Retail E-commerce Dashboard (SQL + Power BI)
 
 **Advanced SQL and Power BI project delivering a comprehensive e-commerce sales and marketing intelligence system to drive data-driven business decisions.**
-[![Dashboard Demo](https://github.com/MoRMatipour/Online-Retail-E-commerce-Dashboard-Postgress-SQL-Power-BI-/blob/main/BI%20Dashboard/demo-thumbnail.png?raw=true)](https://github.com/MoRMatipour/Online-Retail-E-commerce-Dashboard-Postgress-SQL-Power-BI-/raw/refs/heads/main/BI%20Dashboard/Recording%202025-08-21%20123659.mp4)
 
 ---
 
@@ -468,7 +467,7 @@ CALCULATE(
    * Added slicers for **Date, Country, Product Category**.
    * Enabled **drill-down** from category → product → transaction details.
    * Implemented **bookmarks** for switching between Executive View and Analyst View.
-![Dashboard Video](https://github.com/MoRMatipour/Online-Retail-E-commerce-Dashboard-Postgress-SQL-Power-BI-/raw/refs/heads/main/BI%20Dashboard/Recording%202025-08-21%20123659.mp4)
+[![Dashboard Demo](https://github.com/MoRMatipour/Online-Retail-E-commerce-Dashboard-Postgress-SQL-Power-BI-/blob/main/BI%20Dashboard/demo-thumbnail.png?raw=true)](https://github.com/MoRMatipour/Online-Retail-E-commerce-Dashboard-Postgress-SQL-Power-BI-/raw/refs/heads/main/BI%20Dashboard/Recording%202025-08-21%20123659.mp4)
 
 ---
 
