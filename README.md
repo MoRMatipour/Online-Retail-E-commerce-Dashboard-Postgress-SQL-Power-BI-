@@ -398,6 +398,7 @@ After preparing the fact and dimension tables in PostgreSQL, I connected Power B
 
   YearMonthLabel = FORMAT(DATE([year], [month], 1), "MMM yyyy")
 ```
+
 ![KPIs DAX](https://github.com/MoRMatipour/Online-Retail-E-commerce-Dashboard-Postgress-SQL-Power-BI-/blob/main/fast%20kpis/Screenshot%202025-06-24%20193602.png?raw=true)
 
 3. **Building the Fast KPIs Report**
@@ -406,8 +407,11 @@ After preparing the fact and dimension tables in PostgreSQL, I connected Power B
    * Added a **column chart** for Monthly Revenue Trends.
    * Included simple **tables** for Top Products and Top Customers.
    * Ensured **slicers** (Date, Country) were available for quick filtering.
+
 ![Report 1](https://github.com/MoRMatipour/Online-Retail-E-commerce-Dashboard-Postgress-SQL-Power-BI-/blob/main/fast%20kpis/Screenshot%202025-08-21%20115537.png?raw=true)
+
 ![Report 2](https://github.com/MoRMatipour/Online-Retail-E-commerce-Dashboard-Postgress-SQL-Power-BI-/blob/main/fast%20kpis/Screenshot%202025-07-15%20222344.png?raw=true)
+
 ---
 
 ### Output of Phase 2
@@ -428,9 +432,11 @@ With the Fast KPIs report completed, the next goal was to design a **full-scale 
 1. **Connecting Power BI to PostgreSQL**
    - Established a direct connection to the PostgreSQL server.
    - Imported the `fact_sales` and related dimension tables.
+   
 ![Table Imports](https://github.com/MoRMatipour/Online-Retail-E-commerce-Dashboard-Postgress-SQL-Power-BI-/blob/main/BI%20Dashboard/Screenshot%202025-06-27%20154549.png?raw=true)
 
    - Verified relationships between tables (fact-to-dim joins).
+
 ![Table Models](https://github.com/MoRMatipour/Online-Retail-E-commerce-Dashboard-Postgress-SQL-Power-BI-/blob/main/BI%20Dashboard/Screenshot%202025-08-21%20121252.png?raw=true)
 2. **Designing the Dashboard Layout**
 
@@ -474,6 +480,7 @@ CALCULATE(
    * **Product Performance**: Top-selling products by revenue and quantity; scatter plot of revenue vs. order frequency.
    * **Geographic Distribution**: Map visualization showing sales by country.
    * **Growth Tracking**: KPI visual for monthly growth % with conditional formatting.
+
 ![Dashboard Picture](https://github.com/MoRMatipour/Online-Retail-E-commerce-Dashboard-Postgress-SQL-Power-BI-/blob/main/BI%20Dashboard/Screenshot%202025-08-21%20124334.png?raw=true)
 
 5. **Interactivity & Usability**
@@ -481,6 +488,7 @@ CALCULATE(
    * Added slicers for **Date, Country, Product Category**.
    * Enabled **drill-down** from category → product → transaction details.
    * Implemented **bookmarks** for switching between Executive View and Analyst View.
+   
 ![Dashboard Demo](https://github.com/MoRMatipour/Online-Retail-E-commerce-Dashboard-Postgress-SQL-Power-BI-/blob/main/BI%20Dashboard/Recording%202025-08-21%20123659%20(3)%20(1).gif?raw=true)
 
 ---
