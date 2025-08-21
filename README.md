@@ -44,8 +44,8 @@ The project involved:
 - [Data Cleaning & Modeling](#data-cleaning--modeling)
 - [Business KPIs & Analytical Queries](#business-kpis--analytical-queries)
 - [Phase 1 Completed: Data Preparation & Modeling](#phase-1-completed-data-preparation--modeling)
-- [Phase 2: Fast KPIs Report in Power BI](#phase-2-fast-kpis-report-in-powerbi)
-- [Phase 3: Comprehensive BI Dashboard in Power BI](#phase-3-comprehensive-bi-dashboard-in-powerbi)
+- [Phase 2: Fast KPIs Report in Power BI](#phase-2-fast-kpis-report-in-power-bi)
+- [Phase 3: Comprehensive BI Dashboard in Power BI](#phase-3-comprehensive-bi-dashboard-in-power-bi)
 - [Conclusion](#conclusion)
 
 ---
