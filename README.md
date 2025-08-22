@@ -1,4 +1,4 @@
-# 🛒 Online Retail E-commerce Dashboard (SQL + Power BI)
+#  Online Retail E-commerce Dashboard (SQL + Power BI)
 
 **Advanced SQL and Power BI project delivering a comprehensive e-commerce sales and marketing intelligence system to drive data-driven business decisions.**
 
@@ -6,7 +6,7 @@
 
 ---
 
-## 📌 Project Overview
+##  Project Overview
 This project consolidates **transactional, product, and customer data** to provide a **360° view of online retail performance**.
 
 By analyzing **revenue trends, product and category performance, customer segments, and marketing channel contributions**, the dashboard enables actionable insights for:
@@ -18,7 +18,7 @@ Using **SQL for data modeling and KPI calculation**, combined with **interactive
 
 ---
 
-## 🎯 Objective
+##  Objective
 In this project, I designed and implemented a comprehensive **e-commerce sales and marketing intelligence dashboard** to provide actionable insights for business decision-making.
 
 The project involved:
@@ -30,7 +30,7 @@ The project involved:
 
 ---
 
-## 🛠️ Tools & Technologies
+##  Tools & Technologies
 - **SQL (PostgreSQL)** → Data cleaning, transformation, and fact/dimension modeling.
 - **Power Query** → Preprocessing, handling missing values, and shaping raw transaction data.
 - **Power BI** → Creating interactive KPI reports and the final multi-page dashboard.
@@ -69,7 +69,7 @@ This dataset enables analysis of:
 
 To process and analyze the Online Retail dataset efficiently, I first created a **PostgreSQL table** to store the raw data. This structured storage allows accurate querying and seamless integration with downstream analytics and Power BI dashboards.
 
-### 🔹 Table Creation in PostgreSQL
+###  Table Creation in PostgreSQL
 The table schema was designed to reflect the dataset’s structure and ensure proper data types.
 
 ```sql
@@ -85,7 +85,7 @@ CREATE TABLE retails (
 );
 ```
 
-### 🔹 Inserting the Dataset via psql
+###  Inserting the Dataset via psql
 
 Once the table was created, the dataset was imported using PostgreSQL’s command-line tool psql.
 ```psql
