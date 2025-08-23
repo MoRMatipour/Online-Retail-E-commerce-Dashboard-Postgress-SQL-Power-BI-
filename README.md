@@ -89,9 +89,9 @@ CREATE TABLE retails (
 
 Once the table was created, the dataset was imported using PostgreSQL’s command-line tool psql.
 ```psql
-psql -U your_username -d your_database
+psql -U username -d database name
 \COPY retails(InvoiceNo, StockCode, Description, Quantity, InvoiceDate, UnitPrice, CustomerID, Country)
-FROM '/path/to/OnlineRetail.csv' DELIMITER ',' CSV HEADER;
+FROM '/path of dataset/to/OnlineRetail.csv' DELIMITER ',' CSV HEADER;
 ```
 
 
